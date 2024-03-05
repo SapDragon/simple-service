@@ -31,7 +31,9 @@ void Core::C_ConfigManager::ParseConfig()
 	std::ifstream jsonFile(m_sConfigPath);
 
 	if (!jsonFile.is_open())
-		return;
+	{
+		throw std::runtime_error("Can't open file for reading");
+	}
 
 	nlohmann::json jsonData = nlohmann::json::parse(jsonFile);
 
@@ -66,7 +68,9 @@ void Core::C_ConfigManager::WriteConfig()
 	std::ofstream jsonFile(m_sConfigPath);
 
 	if (!jsonFile.is_open())
-		return;
+	{
+		throw std::runtime_error("Can't open file for writing");
+	}
 
 	nlohmann::json jsonData = {
 		{"DataType", m_Config.m_sDataType},

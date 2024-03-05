@@ -4,12 +4,14 @@
 #include <memory>
 #include <filesystem>
 
+#include "fmt/format.h"
+
 namespace Core
 {
 	C_Logger::C_Logger(std::string szLoggerName)
-	{
-		std::string sLogPath = std::filesystem::current_path().root_name().string() + "\\" + "MyService\\info.log";
-		
+	{	
+		std::string sLogPath = fmt::format("{}\\{}\\info.log", std::filesystem::current_path().root_name().string(), "MyService");
+
 		m_logFile = std::ofstream(sLogPath, std::ios::app);
 
 		if (!m_logFile.is_open())
